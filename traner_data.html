@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дополнительная анкета тренера</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #2A2929; /* Черный фон */
+            color: #fff; /* Белые надписи */
+        }
+        .menu {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: #2A2929; /* Черный фон меню */
+            display: flex;
+            justify-content: center;
+            padding: 20px 0; /* Увеличение высоты меню */
+            border-bottom: 1px solid #fff; /* Тонкая белая граница снизу */
+        }
+        .menu a {
+            color: #fff; /* Белый цвет текста */
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px; /* Размер шрифта */
+            transition: color 0.3s ease;
+        }
+        .menu a:hover {
+            color: #ffeb3b;
+        }
+        .form-container {
+            width: 350px; /* Увеличим ширину контейнера */
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0); /* Прозрачный фон */
+            border-radius: 20px; /* Овальные углы */
+            margin-top: 100px; /* Отступ сверху увеличен до 100px */
+        }
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container select,
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 15px; /* Увеличим отступы вокруг поля */
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 2px solid #fff; /* Белая граница */
+            border-radius: 20px; /* Овальные углы */
+            background-color: rgba(255, 255, 255, 0); /* Прозрачный фон */
+            color: #fff; /* Белый цвет текста */
+            font-size: 16px; /* Увеличим размер шрифта */
+            -moz-appearance: textfield; /* Убираем стрелки в Firefox для input[type="number"] */
+        }
+        .form-container input[type="number"]::-webkit-outer-spin-button,
+        .form-container input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none; /* Убираем стрелки в Chrome, Safari, Edge, Opera */
+            margin: 0;
+        }
+        .form-container select {
+            appearance: none; /* Убираем стандартные стили браузера для select */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 16px;
+            transition: background-image 0.3s ease;
+        }
+        .form-container select:focus {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M7 14l5-5 5 5z"/></svg>');
+        }
+        .form-container select option {
+            background-color: #2A2929;
+            color: #fff;
+        }
+        .form-container select:invalid {
+            color: #888; /* Цвет текста для плейсхолдера */
+        }
+        .form-container input[type="submit"] {
+            width: 60%; /* Увеличим ширину кнопки */
+            padding: 15px;
+            border: 2px solid #fff; /* Белые границы */
+            border-radius: 20px; /* Овальные углы */
+            background-color: rgba(255, 255, 255, 0); /* Прозрачный фон */
+            color: #fff; /* Белый цвет текста */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px; /* Увеличим размер шрифта */
+            margin: 20px auto 0; /* Отцентрируем кнопку и добавим отступ сверху */
+            display: block; /* Сделаем кнопку блочным элементом, чтобы применить margin:auto для отцентрирования */
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Прозрачный фон при наведении */
+        }
+        .form-container h2 {
+            margin-top: 0;
+            font-size: 24px; /* Увеличим размер заголовка */
+            text-decoration: underline; /* Добавим нижнее подчеркивание */
+        }
+        ка загрузки файла */
+        .file-upload-btn {
+            width: calc(100% - 32px); /* Ширина как у других полей ввода */
+            padding: 15px;
+            border: 2px solid #fff; /* Белые границы */
+            border-radius: 20px; /* Овальные углы */
+            background-color: transparent; /* Прозрачный фон */
+            color: #fff; /* Белый цвет текста */
+            font-size: 16px; /* Размер шрифта */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-upload-btn span {
+            display: inline-block;
+            width: calc(100% - 40px); /* Учитываем отступы для иконки */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-upload-btn input[type="file"] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .file-upload-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Подсветка при наведении */
+        }
+
+        .file-upload-btn:hover span {
+            color: #ffeb3b; /* Изменение цвета текста при наведении */
+        }
+    </style>
+</head>
+<body>
+<div class="menu">
+    <a href="#">Архив тренировок</a>
+    <a href="#">Аналитика тренировок</a>
+    <a href="#">Начать тренировку</a>
+</div>
+<div class="form-container">
+    <h2>Дополнительная анкета тренера</h2>
+    <form action="#" method="post" enctype="multipart/form-data">
+        <label for="education">Образование:</label>
+        <input type="text" id="education" name="education" required>
+
+        <label for="additional_education">Дополнительное образование:</label>
+        <input type="text" id="additional_education" name="additional_education" required>
+
+        <label for="specialization">Специализация:</label>
+        <input type="text" id="specialization" name="specialization" required>
+
+        <label for="experience">Стаж работы:</label>
+        <input type="text" id="experience" name="experience" required>
+
+        <label for="awards">Награды и достижения:</label>
+        <input type="text" id="awards" name="awards" required>
+
+        <!-- Измененный вариант кнопки загрузки портфолио -->
+        <label for="portfolio" class="file-upload-btn">
+            <span>Загрузить портфолио (PDF)</span>
+            <input type="file" id="portfolio" name="portfolio" accept=".pdf" required>
+        </label>
+        <!-- Элемент для отображения имени загруженного файла -->
+        <span class="file-name"></span>
+
+        <input type="submit" value="Сохранить">
+    </form>
+</div>
+
+<!-- JavaScript для отображения имени загруженного файла -->
+<script>
+    const fileInput = document.getElementById('portfolio');
+    const fileNameSpan = document.querySelector('.file-name');
+
+    fileInput.addEventListener('change', function() {
+        fileNameSpan.textContent = this.files[0].name;
+    });
+</script>
+</body>
+</html>
+
